@@ -1,0 +1,92 @@
+name: Azure Terraform
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  terraform:
+    name: Azure Terraform
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: azure_poc_01/terraform/deployments/demo
+    env:
+      ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: 0.15.4
+
+    - name: Show Terraform version
+      id: version
+      run: terraform --version
+
+    - name: Terraform Format
+      id: format
+      run: terraform fmt -check
+
+    - name: Terraform init
+      id: init
+      run: terraform init -input=false
+
+    - name: Terraform validation
+      id: validation
+      run: terraform validate
+
+    - name: Terraform plan
+      id: plan
+      run: terraform plan
+      continue-on-error: true
+
+    - name: Terraform plan status
+      if: steps.plan.outcome == 'failure'
+      run: exit 1
+
+    - name: Run Checkov
+      id: checkov
+      uses: bridgecrewio/checkov-action@master
+      with:
+        directory: azure_poc_01/
+
+    - name: Terraform apply
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      run: terraform apply -auto-approve
+
+    # - name: Install AZ client
+    #   run: curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
+    - name: Login at Azure and get credentials to access the AKS
+      run: |
+          az login --service-principal --username ${{ secrets.AZURE_AD_CLIENT_ID }} --password ${{ secrets.AZURE_AD_CLIENT_SECRET }} --tenant ${{ secrets.AZURE_AD_TENANT_ID }}
+          az aks get-credentials --resource-group poc-rg-us-dev --name poc-aks-01-us-dev --overwrite-existing
+
+    - name: Create namespace called infrastructure (does not return error if it already exists)
+      run: kubectl create namespace infrastructure --dry-run=client -o yaml | kubectl apply -f -
+
+    - name: Use HELM to install NGINX Ingress controller
+      run: |
+          helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+          helm upgrade --install nginx-ingress ingress-nginx/ingress-nginx --namespace infrastructure -f ../../../aks_manifests/httpd-port-80/internal-ingress.yml --set controller.replicaCount=2
+
+    - name: Wait until NGINX is not ready
+      run: kubectl wait --namespace infrastructure --for=condition=ready pod --selector=app.kubernetes.io/component=controller --timeout=600s
+
+
+    - name: Create namespace called app01 (does not return error if it already exists)
+      run: kubectl create namespace app01 --dry-run=client -o yaml | kubectl apply -f -
+
+    - name: Deploy httpd image at AKS
+      run: |
+          kubectl apply -f ../../../aks_manifests/httpd-port-80/deployment.yml --wait=true
+          kubectl apply -f ../../../aks_manifests/httpd-port-80/service.yml --wait=true
+          kubectl apply -f ../../../aks_manifests/httpd-port-80/ingress.yml --wait=true
+    
