@@ -50,11 +50,11 @@ jobs:
       if: steps.plan.outcome == 'failure'
       run: exit 1
 
-    - name: Run Checkov
-      id: checkov
-      uses: bridgecrewio/checkov-action@master
-      with:
-        directory: azure_poc_01/
+    #    - name: Run Checkov
+    #      id: checkov
+    #      uses: bridgecrewio/checkov-action@master
+    #      with:
+    #        directory: azure_poc_01/
 
     - name: Terraform apply
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
