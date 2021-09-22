@@ -6,7 +6,7 @@ provider "azurerm" {
 locals {
   # Local variables for resource tags
   tag_creator    = "terraform"
-  tag_tf_version = "0.15.4"
+  tag_tf_version = "1.0.6"
 }
 
 # Create a resource group
