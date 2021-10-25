@@ -45,7 +45,7 @@ Using the Bastion Host you can check the cluster nodes:
 
 ![Bastion Host login](https://github.com/ModusCreateOrg/azure-terraform-demos/blob/main/azure_poc_02/images/login_bastion.png?raw=true)
 
-Username=ubuntu, Password=This~is#a!P0C (Note: This is a PoC. Secrets should be stored at KeyVault in prod environments)
+Username=ubuntu, Password=This~is#a!P0C *(Important: This is a PoC... Secrets should be stored at KeyVault in production environments)*
 
 Just access the Bastion Host and send the following command:
 ```bash
