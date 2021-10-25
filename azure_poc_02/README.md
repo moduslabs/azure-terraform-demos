@@ -12,9 +12,9 @@
 ## Objective - Deploy Docker Swarm on Azure
 
 This is a PoC showing how to spin up Docker Swarm at Azure. 
-This is a basic example and improvements should be done for production environments like using WAF, Key Vault, TLS, etc...
+*This is a basic example and improvements should be done for production environments like using WAF, Key Vault, TLS, etc...*
 
--   3 Docker Swarm managers (will also be a worker node) - Availability set
+-   3 Docker Swarm managers (managers will also work as worker nodes) - Availability set
 -   2 Docker Swarm worker nodes - Scale set
 -   A Bastion Host to access the Docker Swarm inside the VPC
 -   Storage Share to share files between the nodes
