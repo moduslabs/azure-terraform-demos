@@ -20,7 +20,7 @@ This is a basic example and improvements should be done for production environme
 -   Storage Share to share files between the nodes
 
 ## Architecture chart
-![Architecture Chart](https://github.com/fernandomatsuosantos/modus_create_poc/blob/main/azure_poc_02/images/architecture.png?raw=true)
+![Architecture Chart](https://github.com/ModusCreateOrg/azure-terraform-demos/blob/main/azure_poc_02/images/architecture.png?raw=true)
 
 ## Software versions used in this PoC
 
@@ -43,7 +43,7 @@ You will have all services up and running.
 ### Check your Docker Swarm nodes
 Using the Bastion Host you can check the cluster nodes:
 
-![Docker Swarm nodes](https://github.com/fernandomatsuosantos/modus_create_poc/blob/main/azure_poc_02/images/login_bastion.png?raw=true)
+![Bastion Host login](https://github.com/ModusCreateOrg/azure-terraform-demos/blob/main/azure_poc_02/images/login_bastion.png?raw=true)
 
 Username=ubuntu, Password=This~is#a!P0C (Note: This is a PoC. Secrets should be stored at KeyVault in prod environments)
 
@@ -52,7 +52,7 @@ Just access the Bastion Host and send the following command:
 docker node ls
 ```
 
-![Docker Swarm nodes](https://github.com/fernandomatsuosantos/modus_create_poc/blob/main/azure_poc_02/images/cluster_nodes.png?raw=true)
+![Docker Swarm nodes](https://github.com/ModusCreateOrg/azure-terraform-demos/blob/main/azure_poc_02/images/cluster_nodes.png?raw=true)
 
 
 ### Create a docker service and test it
@@ -65,7 +65,7 @@ docker service create --name nginx --publish 80:80 nginx
 In a few secconds you will have NGINX up and running in your Docker Swarm cluster. 
 Just access your Public IP address (poc2-pip-01-us-dev - running at port 80): http://xxx.xxx.xxx.xx
 
-![Docker Swarm NGINX](https://github.com/fernandomatsuosantos/modus_create_poc/blob/main/azure_poc_02/images/nginx.png?raw=true)
+![Docker Swarm NGINX](https://github.com/ModusCreateOrg/azure-terraform-demos/blob/main/azure_poc_02/images/nginx.png?raw=true)
 
 
 ## Modus Create
