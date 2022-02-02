@@ -35,7 +35,7 @@ resource "azurerm_application_gateway" "application_gateway" {
   resource_group_name = var.resource_group_name
   location            = var.location
   firewall_policy_id  = var.firewall_policy_id
-  
+
   sku {
     name     = var.sku_name
     tier     = var.sku_tier
@@ -95,6 +95,7 @@ resource "azurerm_application_gateway" "application_gateway" {
     interval                                  = 5
     timeout                                   = 30
     unhealthy_threshold                       = 3
+    host                                      = module.public_ip.ip_address
   }
 
   tags = merge(var.tags, local.module_tags)

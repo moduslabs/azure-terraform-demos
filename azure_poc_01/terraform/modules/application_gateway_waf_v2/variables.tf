@@ -95,7 +95,7 @@ variable "health_probe_protocol" {
 
 variable "pick_host_name_from_backend_http_settings" {
   description = "Whether the host header should be picked from the backend http settings. Defaults to false."
-  default     = true
+  default     = false
 }
 
 variable "firewall_policy_id" {
