@@ -15,7 +15,7 @@ metadata:
       checkov.io/skip9: CKV_K8S_9=Since this is just a demo this check will be ignored
       checkov.io/skip10: CKV_K8S_43=Since this is just a demo this check will be ignored
       checkov.io/skip11: CKV_K8S_22=Since this is just a demo this check will be ignored
-      checkov.io/skip14: CKV_K8S_22=Since this is just a demo this check will be ignored
+      checkov.io/skip14: CKV_K8S_14=Since this is just a demo this check will be ignored
       checkov.io/skip12: CKV_K8S_20=Since this is just a demo this check will be ignored
 spec:
   replicas: 3
