@@ -29,6 +29,8 @@ resource "azurerm_subnet" "subnet_waf" {
 
 # Create an Application Gateway
 resource "azurerm_application_gateway" "application_gateway" {
+  # checkov:skip=CKV_AZURE_120: "Since this is just a demo this check will be ignored"
+
   name                = var.name
   resource_group_name = var.resource_group_name
   location            = var.location
