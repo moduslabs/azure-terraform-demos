@@ -85,7 +85,7 @@ variable "health_probe_name" {
 
 variable "health_probe_path" {
   description = "The Path used for this Probe"
-  default     = "/"
+  default     = "/httpd"
 }
 
 variable "health_probe_protocol" {
