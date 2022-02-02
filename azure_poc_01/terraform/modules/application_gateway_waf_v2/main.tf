@@ -39,13 +39,6 @@ resource "azurerm_application_gateway" "application_gateway" {
     capacity = var.capacity
   }
 
-  waf_configuration {
-    enabled          = true
-    firewall_mode    = "Prevention"
-    rule_set_type    = "OWASP"
-    rule_set_version = "3.0"
-  }
-
   gateway_ip_configuration {
     name      = "${var.name}-ipconfig"
     subnet_id = "${var.vnet_id}/subnets/${azurerm_subnet.subnet_waf.name}"
