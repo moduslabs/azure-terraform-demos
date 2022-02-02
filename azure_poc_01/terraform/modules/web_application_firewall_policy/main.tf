@@ -41,7 +41,7 @@ resource "azurerm_web_application_firewall_policy" "web_application_firewall_pol
   managed_rules {
     managed_rule_set {
       type    = "OWASP"
-      version = "3.0"
+      version = "3.1"
       rule_group_override {
         rule_group_name = "REQUEST-931-APPLICATION-ATTACK-RFI"
         disabled_rules  = [931130]
