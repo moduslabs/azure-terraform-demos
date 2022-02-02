@@ -69,6 +69,7 @@ resource "azurerm_application_gateway" "application_gateway" {
     port                  = var.backend_port
     protocol              = "Http"
     request_timeout       = var.backend_request_timeout
+    probe_name            = var.health_probe_name
   }
 
   http_listener {

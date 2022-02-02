@@ -17,7 +17,7 @@ waf_01_backend_address       = "10.1.127.254"
 ################################################################################
 # Variables for AKS
 ################################################################################
-aks_01_subnet_address_prefix  = "10.1.0.0/17" #32766 hosts
+aks_01_subnet_address_prefix  = "10.1.0.0/17" #32766 hosts - 10.1.0.1 to 10.1.127.254
 aks_01_max_pods               = "50"
 aks_01_vm_size                = "Standard_B2s" #Standard_B4ms
 aks_01_kubernetes_version     = "1.21.7"
