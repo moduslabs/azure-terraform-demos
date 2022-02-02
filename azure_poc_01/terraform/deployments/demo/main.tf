@@ -85,6 +85,8 @@ module "application_gateway" {
   backend_port            = 80
   backend_request_timeout = 5
   backend_address_pool    = [var.waf_01_backend_address]
+  firewall_policy_id      = module.web_application_firewall_policy.id
+
 
   tags = {
     creator    = local.tag_creator
